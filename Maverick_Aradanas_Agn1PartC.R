@@ -1,8 +1,11 @@
+#This script has been edited by Pasha Talebi Charmchi
+
 #PART C - Adapting Concepts and Skills to Create New Research 
 
 #Project topic and objectives:
 
-#In this mini-project, I wanted to determine how much of impact different countries has contributed to the efforts of classifying all the members of the Sipuncula taxa. For this, I need to know which countries have submitted barcodes and how many have they submitted at the current time. To get the bigger picture, I hope to determine the current status of the classification globally and then follow up with how each country have contributed to the effort. In this respect, I want to determine the genetic diversity of species found in different geographic locations. Ultimately, I hope to determine which country had the highest impact based on the genetic diversity of the barcodes recorded and submitted from said country. 
+#In this mini-project, I wanted to determine how much of impact different countries has contributed to the efforts of classifying all the members of the Sipuncula taxa. For this, I need to know which countries have submitted barcodes and how many have they submitted at the current time. To get the bigger picture, I hope to determine the current status of the classification globally and then follow up with how each country have contributed to the effort. In this respect, I want to determine the genetic diversity of species found in different geographic locations. Ultimately, I hope to determine which country had the highest impact based on the genetic diversity of the barcodes recorded and submitted from said country.
+
 
 ################################################################################################################
 
@@ -32,11 +35,21 @@ names(Sipuncula)
 #Checking missing latitudal records
 sum(is.na(Sipuncula$lat))
 hist(Sipuncula$lat, xlab = 'Latitude', ylab = 'Records', main = 'Fig 1: Distribution of Records by Latitude')
+#My peer used above function to check geographic distributions which is actually a built-in function for data visualization
+#My alternative way to plot a histogram would be to use ggplot as the output would be more beautiful than using his() function. Despite its complexity we can easily add more features to our plot by adding more layers.
+ggplot(data = Sipuncula, aes(x = Sipuncula$lat)) + geom_histogram(color = 'darkgray', fill = 'white', binwidth = 60) + labs(x = 'Latitude', y = 'Records', title = 'Distribution of Records by Latitude')
+
+################################################################################################################
 
 #Checking basic parameters
 mean(Sipuncula$lat, na.rm = TRUE)
 min(Sipuncula$lat, na.rm = TRUE)
 max(Sipuncula$lat, na.rm = TRUE)
+#My peer used above functions to check basic attributes 
+#My alternative way would be to use summary() function as it is more efficient and we can achieve the same results by just writing one line of code.
+summary(Sipuncula$lat)
+
+################################################################################################################
 
 #Checking how many records are there for each country
 
@@ -65,6 +78,12 @@ Sipuncula.markercode <- Sipuncula %>%
   #Return the counts for each genetic marker in descending order.
   arrange(desc(n)) %>%
   print()
+###############################################################################################################
+
+#It would be wise to use piping but an alternative way would be to use table() function. By using table() function we can achieve the same result with just one line of code.
+table(Spiuncula$markercode)
+
+###############################################################################################################
 
 #Creating a data subset consisting only of records with nucleotide sequences from the genetic marker COI-5P. Only this genetic marker has relevant number of records. 
 Sipuncula.COI_5P <- Sipuncula %>%
@@ -179,3 +198,6 @@ specnumber(Sipuncula.COI_5P.comm.Top.5)
 
 #There were 21 different countries that have submitted records, however most of the BINs did not have entries for their countries of origins. The sampling of Sipuncula members globally is largely incomplete (Fig 2.) and it is apparent that there are still several unknown species within each country listed in this study and those which are not (Fig 3.). The species found in North America, Japan and French Polynesia have been observed to be more genetically different relative to the rest of the species found in other locations (Fig 4.). Most of the records come from Russia, however these records belonged only to 3 unique species, suggesting a low genetic diversity. The country that have the highest genetic diversity is the United States (17 unique species), which agrees with the finding of species from North America being more genetically different. In conclusion, sampling of Sipuncula is largely incomplete, and many species are yet to be sampled within most countries. 
 
+##########################################################################################################
+
+#As a whole, the script is well commented and organized. However, providing some information about the reasons for using the function used in this project would improve the script and it would be better if the comments were put in front of each code rather than in a new line. 
